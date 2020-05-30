@@ -5,11 +5,7 @@
 </template>
 
 <style lang="scss">
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
+@import "assets/styles/reset";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
