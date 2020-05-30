@@ -7,16 +7,30 @@
 		标签
 	</router-link>
 		|
-	<router-link to="/account">回首掏</router-link>
+	<router-link to="/account">
+		<svg>
+			<use xlink:href="#plus" />
+		</svg>
+		回首掏
+	</router-link>
 		|
-	<router-link to="/statistics">统计</router-link>
+	<router-link to="/statistics">
+		<svg>
+			<use xlink:href="#chart" />
+		</svg>
+		统计
+	</router-link>
 	</div>
 </template>
 
 <script lang="ts">
-import label from '@/assets/icons/label.svg'
-import money from '@/assets/icons/plus.svg'
-import chart from '@/assets/icons/chart.svg'
+
+	let importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext)
+	try {
+		importAll(require.context('../assets/icons', true, /\.svg$/))
+	} catch (error) {
+		console.log(error)
+	}
 
 export default {}
 </script>
