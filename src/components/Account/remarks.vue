@@ -1,13 +1,16 @@
 <template>
 	<div class="remark">
 		<span>备注</span>
-		<input type="text" placeholder="请在这里添加备注">
+		<input type="text" placeholder="请在这里添加备注" v-model="remarks">
 	</div>
 </template>
 
-<script>
-	export default {
-		name: "remarks"
+<script lang="ts">
+	import {Vue, Component} from 'vue-property-decorator';
+
+	@Component
+	export default class remarks extends Vue {
+		remarks: string = '';
 	}
 </script>
 
