@@ -1,8 +1,8 @@
 <template>
 	<Layout class-prefix="main">
-		<Computer @update:value="onChangeAmount"/>
+		<Computer @update:value="onChangeAmount" @submit="onSubmitRecord"/>
 		<account-type type="outcome" @update:type="onChangeType"/>
-		<remarks @updeta:remark="onChangeRemark"/>
+		<remarks @update:remark="onChangeRemark"/>
 		<top-wrapper :labels.sync="labels" @update:select="onChangeLabels"/>
 	</Layout>
 </template>
@@ -21,6 +21,7 @@
 		labels?: string[]
 		amount: number
 		remark: string
+		createAt?: Date
 	}
 
 	@Component({
@@ -33,29 +34,35 @@
 	})
 	export default class Account extends Vue {
 		labels: string[] = JSON.parse(localStorage.getItem('MoneyLabels') || '[]');
-		selectionLabel: string[] = [];
+		recordList: Array<Record> = JSON.parse(localStorage.getItem('recordList') || '[]');
 		record: Record = {
-			type: '',
-			remark: 'outcome',
+			type: 'outcome',
+			remark: '',
 			labels: [],
-			amount: 0
-		}
+			amount: 0,
+		};
 
 		onChangeLabels(select: Array<string>) {
-			this.selectionLabel = select;
-			console.log(select);
+			this.record.labels = select;
 		}
 
 		onChangeRemark(remark: string) {
-			console.log(remark);
+			this.record.remark = remark;
 		}
 
 		onChangeType(type: string) {
-			console.log(type);
+			this.record.type = type;
 		}
 
 		onChangeAmount(value: string) {
-			console.log(parseFloat(value));
+			this.record.amount = parseFloat(value);
+		}
+
+		onSubmitRecord () {
+			this.record.createAt = new Date()
+			const recordItem: Record = JSON.parse(JSON.stringify(this.record))
+			this.recordList.push(recordItem)
+			localStorage.setItem('recordList', JSON.stringify(this.recordList))
 		}
 	}
 </script>
