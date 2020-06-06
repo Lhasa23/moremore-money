@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-	import {Vue, Component, Prop} from 'vue-property-decorator';
+	import {Vue, Component, Prop, Watch} from 'vue-property-decorator';
 
 	@Component
 	export default class accountType extends Vue {
@@ -24,6 +24,11 @@
 
 		mounted() {
 			this.types = this.type
+		}
+
+		@Watch('types')
+		onChangeType() {
+			this.$emit('update:type', this.types)
 		}
 	}
 </script>

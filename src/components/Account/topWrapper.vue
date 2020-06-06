@@ -3,12 +3,12 @@
 		<div class="labels">
 			<div
 				class="label-item"
-				:class="{selected: item.selected}"
+				:class="{selected: selectedLabels.findIndex(name => name === item) > -1}"
 				v-for="item in labels"
-				:key="item.name"
+				:key="item"
 				@click="toggleSelection(item)"
 			>
-				{{item.name}}
+				{{item}}
 			</div>
 		</div>
 		<div class="top-footer">
@@ -21,39 +21,33 @@
 
 <script lang="ts">
 	import {Component, Prop, Vue} from 'vue-property-decorator';
-	import Label from '@/interfaces/label';
 
 	@Component
 	export default class topWrapper extends Vue {
-		selectedLabels: Array<Label> = [];
+		selectedLabels: string[] = [];
 		@Prop({
 			type: Array,
 			default: []
 		})
-		labels!: Array<Label>;
+		labels!: string[];
 
-		toggleSelection(label: Label) {
-			const selInx = this.selectedLabels.findIndex(item => label.name === item.name);
+		toggleSelection(label: string) {
+			const selInx = this.selectedLabels.findIndex(item => label === item);
 			if (selInx > -1) {
 				this.selectedLabels.splice(selInx, 1);
-				label.selected = false;
 			} else {
 				this.selectedLabels.push(label);
-				label.selected = true;
 			}
+			this.$emit('update:select', this.selectedLabels);
 		}
 
 		addLabel() {
-			const randomNum = Math.random().toString().slice(2);
 			const name = window.prompt('请输入标签名');
 			if (name) {
-				const existed = this.labels.findIndex(item => item.name === name)
+				const existed = this.labels.findIndex(item => item === name);
 				if (existed === -1) {
-					let temp: Label = {
-						name,
-						selected: false
-					};
-					this.labels.push(temp);
+					this.labels.push(name);
+					localStorage.setItem('MoneyLabels', JSON.stringify(this.labels));
 					this.$emit('update:labels', this.labels);
 				} else {
 					window.alert('该标签已存在');

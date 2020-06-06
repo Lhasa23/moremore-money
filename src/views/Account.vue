@@ -1,23 +1,27 @@
 <template>
 	<Layout class-prefix="main">
-		<Computer/>
-		<account-type/>
-		<remarks/>
-		<top-wrapper :labels.sync="labels"/>
+		<Computer @update:value="onChangeAmount"/>
+		<account-type type="outcome" @update:type="onChangeType"/>
+		<remarks @updeta:remark="onChangeRemark"/>
+		<top-wrapper :labels.sync="labels" @update:select="onChangeLabels"/>
 	</Layout>
 </template>
 
 <script lang="ts">
-	import {Vue, Component} from 'vue-property-decorator'
+	import {Vue, Component} from 'vue-property-decorator';
 
 	// 组件
-	import Computer from '@/components/Account/Computer.vue'
-	import AccountType from '@/components/Account/accountType.vue'
-	import Remarks from '@/components/Account/remarks.vue'
-	import TopWrapper from '@/components/Account/topWrapper.vue'
+	import Computer from '@/components/Account/Computer.vue';
+	import AccountType from '@/components/Account/accountType.vue';
+	import Remarks from '@/components/Account/remarks.vue';
+	import TopWrapper from '@/components/Account/topWrapper.vue';
 
-	// 接口
-	import Label from '@/interfaces/label';
+	type Record = {
+		type: string
+		labels?: string[]
+		amount: number
+		remark: string
+	}
 
 	@Component({
 		components: {
@@ -28,19 +32,31 @@
 		}
 	})
 	export default class Account extends Vue {
-		labels: Array<Label> = [{
-			name: '1',
-			selected: false
-		}, {
-			name: '2',
-			selected: false
-		}, {
-			name: '3',
-			selected: false
-		}, {
-			name: '4',
-			selected: false
-		}];
+		labels: string[] = JSON.parse(localStorage.getItem('MoneyLabels') || '[]');
+		selectionLabel: string[] = [];
+		record: Record = {
+			type: '',
+			remark: 'outcome',
+			labels: [],
+			amount: 0
+		}
+
+		onChangeLabels(select: Array<string>) {
+			this.selectionLabel = select;
+			console.log(select);
+		}
+
+		onChangeRemark(remark: string) {
+			console.log(remark);
+		}
+
+		onChangeType(type: string) {
+			console.log(type);
+		}
+
+		onChangeAmount(value: string) {
+			console.log(parseFloat(value));
+		}
 	}
 </script>
 
