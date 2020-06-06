@@ -16,13 +16,9 @@
 	import Remarks from '@/components/Account/remarks.vue';
 	import TopWrapper from '@/components/Account/topWrapper.vue';
 
-	type Record = {
-		type: string
-		labels?: string[]
-		amount: number
-		remark: string
-		createAt?: Date
-	}
+	// 接口
+	import {Record} from '@/interfaces/Record'
+	import {model} from '@/utils/model';
 
 	@Component({
 		components: {
@@ -33,8 +29,8 @@
 		}
 	})
 	export default class Account extends Vue {
-		labels: string[] = JSON.parse(localStorage.getItem('MoneyLabels') || '[]');
-		recordList: Array<Record> = JSON.parse(localStorage.getItem('recordList') || '[]');
+		labels: string[] = model.fetchLabelList();
+		recordList: Array<Record> = model.fetchRecordList();
 		record: Record = {
 			type: 'outcome',
 			remark: '',
@@ -62,7 +58,7 @@
 			this.record.createAt = new Date()
 			const recordItem: Record = JSON.parse(JSON.stringify(this.record))
 			this.recordList.push(recordItem)
-			localStorage.setItem('recordList', JSON.stringify(this.recordList))
+			model.saveRecordList(this.recordList)
 		}
 	}
 </script>
