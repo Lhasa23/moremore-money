@@ -3,7 +3,7 @@
 		<Computer @update:value="onChangeAmount" @submit="onSubmitRecord"/>
 		<account-type type="outcome" @update:type="onChangeType"/>
 		<remarks @update:remark="onChangeRemark"/>
-		<top-wrapper :labels.sync="labels" @update:select="onChangeLabels"/>
+		<top-wrapper @update:select="onChangeLabels"/>
 	</Layout>
 </template>
 
@@ -17,7 +17,7 @@
 	import TopWrapper from '@/components/Account/topWrapper.vue';
 
 	// 接口
-	import {Record} from '@/interfaces/Record'
+	import {Record} from '@/interfaces/Record';
 	import {model} from '@/utils/model';
 
 	@Component({
@@ -29,7 +29,6 @@
 		}
 	})
 	export default class Account extends Vue {
-		labels: string[] = model.fetchLabelList();
 		recordList: Array<Record> = model.fetchRecordList();
 		record: Record = {
 			type: 'outcome',
@@ -54,11 +53,11 @@
 			this.record.amount = parseFloat(value);
 		}
 
-		onSubmitRecord () {
-			this.record.createAt = new Date()
-			const recordItem: Record = JSON.parse(JSON.stringify(this.record))
-			this.recordList.push(recordItem)
-			model.saveRecordList(this.recordList)
+		onSubmitRecord() {
+			this.record.createAt = new Date();
+			const recordItem: Record = JSON.parse(JSON.stringify(this.record));
+			this.recordList.push(recordItem);
+			model.saveRecordList(this.recordList);
 		}
 	}
 </script>

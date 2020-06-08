@@ -20,16 +20,14 @@
 </template>
 
 <script lang="ts">
-	import {Component, Prop, Vue} from 'vue-property-decorator';
+	import {Component, Vue} from 'vue-property-decorator';
+	import {labelModel, model} from '@/utils/model';
 
+	labelModel.fetch();
 	@Component
 	export default class topWrapper extends Vue {
 		selectedLabels: string[] = [];
-		@Prop({
-			type: Array,
-			default: []
-		})
-		labels!: string[];
+		labels: string[] = labelModel.data;
 
 		toggleSelection(label: string) {
 			const selInx = this.selectedLabels.findIndex(item => label === item);
@@ -46,8 +44,7 @@
 			if (name) {
 				const existed = this.labels.findIndex(item => item === name);
 				if (existed === -1) {
-					this.labels.push(name);
-					localStorage.setItem('MoneyLabels', JSON.stringify(this.labels));
+					labelModel.create(name)
 					this.$emit('update:labels', this.labels);
 				} else {
 					window.alert('该标签已存在');

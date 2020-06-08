@@ -7,18 +7,31 @@
 			</li>
 		</ol>
 		<div class="add-label-wrapper">
-			<button class="add-label">新增标签</button>
+			<button class="add-label" @click="addLabel">新增标签</button>
 		</div>
 	</Layout>
 </template>
 
 <script lang="ts">
 	import {Vue, Component} from 'vue-property-decorator';
-	import {model} from '@/utils/model';
+	import {labelModel, model} from '@/utils/model';
 
+	labelModel.fetch();
 	@Component
 	export default class Labels extends Vue {
-		labels: string[] = model.fetchLabelList();
+		labels: string[] = labelModel.data;
+
+		addLabel() {
+			const name = window.prompt('请输入标签名');
+			if (name) {
+				const existed = this.labels.findIndex(item => item === name);
+				if (existed === -1) {
+					labelModel.create(name);
+				} else {
+					window.alert('该标签已存在');
+				}
+			}
+		}
 	}
 </script>
 
