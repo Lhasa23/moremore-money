@@ -25,6 +25,11 @@ Vue.use(VueRouter)
       component: () => import('@/views/Statistics.vue')
     },
     {
+      path: '/edit-labels/:name',
+      name: 'edit-labels',
+      component: () => import('@/views/EditLabels.vue')
+    },
+    {
       path: '*',
       component: NotFound
     }

@@ -1,11 +1,11 @@
 <template>
 	<Layout>
-		<ol class="labels">
-			<li v-for="(item, index) in labels" :key="index">
+		<div class="labels">
+			<router-link class="label" v-for="item in labels" :key="item" :to="`/edit-labels/${item}`">
 				<span>{{item}}</span>
 				<icons class="icons" link="right"/>
-			</li>
-		</ol>
+			</router-link>
+		</div>
 		<div class="add-label-wrapper">
 			<button class="add-label" @click="addLabel">新增标签</button>
 		</div>
@@ -40,7 +40,7 @@
 		background-color: white;
 		padding-left: 16px;
 
-		li {
+		.label {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
