@@ -8,6 +8,8 @@ type labelsModel = {
 	fetch: () => string[]
 	create: (name: string) => string
 	save: () => void
+	edit: (name: string, index: number) => void
+	delete: (index: number) => void
 }
 
 export const model = {
@@ -32,5 +34,13 @@ export const labelModel: labelsModel = {
 	},
 	save() {
 		localStorage.setItem(labelName, JSON.stringify(this.data));
+	},
+	edit(name: string, index: number) {
+		this.data.splice(index, 1, name)
+		this.save()
+	},
+	delete(index: number) {
+		this.data.splice(index, 1)
+		this.save()
 	}
 };
