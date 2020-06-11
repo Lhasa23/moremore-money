@@ -54,10 +54,7 @@
 		}
 
 		onSubmitRecord() {
-			this.record.createAt = new Date();
-			const recordItem: Record = JSON.parse(JSON.stringify(this.record));
-			this.recordList.push(recordItem);
-			model.saveRecordList(this.recordList);
+			model.createRecord(this.record);
 		}
 	}
 </script>

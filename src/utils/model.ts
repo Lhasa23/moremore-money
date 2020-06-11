@@ -13,11 +13,19 @@ type labelsModel = {
 }
 
 export const model = {
+	data: [] as Record[],
 	fetchRecordList(): Record[] {
-		return JSON.parse(window.localStorage.getItem(recordName) || '[]');
+		this.data = JSON.parse(window.localStorage.getItem(recordName) || '[]');
+		return this.data;
 	},
-	saveRecordList(data: Array<Record>) {
-		window.localStorage.setItem(recordName, JSON.stringify(data));
+	saveRecordList() {
+		window.localStorage.setItem(recordName, JSON.stringify(this.data));
+	},
+	createRecord(record: Record) {
+		const target = JSON.parse(JSON.stringify(record));
+		target.createAt = new Date();
+		this.data.push(target);
+		this.saveRecordList();
 	}
 };
 
@@ -36,11 +44,11 @@ export const labelModel: labelsModel = {
 		localStorage.setItem(labelName, JSON.stringify(this.data));
 	},
 	edit(name: string, index: number) {
-		this.data.splice(index, 1, name)
-		this.save()
+		this.data.splice(index, 1, name);
+		this.save();
 	},
 	delete(index: number) {
-		this.data.splice(index, 1)
-		this.save()
+		this.data.splice(index, 1);
+		this.save();
 	}
 };
