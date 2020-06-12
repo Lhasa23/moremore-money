@@ -1,6 +1,3 @@
-import {Record} from '@/interfaces/record';
-
-const recordName = 'recordList';
 const labelName = 'MoneyLabels';
 
 type labelsModel = {
@@ -11,23 +8,6 @@ type labelsModel = {
 	edit: (name: string, index: number) => void
 	delete: (index: number) => void
 }
-
-export const model = {
-	data: [] as Record[],
-	fetchRecordList(): Record[] {
-		this.data = JSON.parse(window.localStorage.getItem(recordName) || '[]');
-		return this.data;
-	},
-	saveRecordList() {
-		window.localStorage.setItem(recordName, JSON.stringify(this.data));
-	},
-	createRecord(record: Record) {
-		const target = JSON.parse(JSON.stringify(record));
-		target.createAt = new Date();
-		this.data.push(target);
-		this.saveRecordList();
-	}
-};
 
 export const labelModel: labelsModel = {
 	data: [],

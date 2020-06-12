@@ -18,7 +18,6 @@
 
 	// 接口
 	import {Record} from '@/interfaces/Record';
-	import {model} from '@/utils/model';
 
 	@Component({
 		components: {
@@ -26,16 +25,24 @@
 			Remarks,
 			AccountType,
 			Computer
+		},
+		computed: {
+			recordList() {
+				return this.$store.state.recordList;
+			}
 		}
 	})
 	export default class Account extends Vue {
-		recordList: Array<Record> = model.fetchRecordList();
 		record: Record = {
 			type: 'outcome',
 			remark: '',
 			labels: [],
 			amount: 0,
 		};
+
+		created() {
+			this.$store.commit('fetchRecordList')
+		}
 
 		onChangeLabels(select: Array<string>) {
 			this.record.labels = select;
@@ -54,7 +61,7 @@
 		}
 
 		onSubmitRecord() {
-			model.createRecord(this.record);
+			this.$store.commit('createRecord', this.record);
 		}
 	}
 </script>

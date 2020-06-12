@@ -14,7 +14,7 @@
 
 <script lang="ts">
 	import {Vue, Component} from 'vue-property-decorator';
-	import {labelModel, model} from '@/utils/model';
+	import {labelModel} from '@/utils/model';
 
 	labelModel.fetch();
 	@Component
