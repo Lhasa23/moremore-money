@@ -25,11 +25,6 @@
 			Remarks,
 			AccountType,
 			Computer
-		},
-		computed: {
-			recordList() {
-				return this.$store.state.recordList;
-			}
 		}
 	})
 	export default class Account extends Vue {
@@ -39,6 +34,10 @@
 			labels: [],
 			amount: 0,
 		};
+
+		get recordList() {
+			return this.$store.state.recordList;
+		}
 
 		created() {
 			this.$store.commit('fetchRecordList')
