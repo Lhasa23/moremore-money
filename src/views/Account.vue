@@ -1,7 +1,7 @@
 <template>
 	<Layout class-prefix="main">
 		<Computer @update:value="onChangeAmount" @submit="onSubmitRecord"/>
-		<account-type type="outcome" @update:type="onChangeType"/>
+		<tabs :value.sync="type" :data-source="headerTab" @update:value="onChangeType"/>
 		<remarks @update:remark="onChangeRemark"/>
 		<top-wrapper @update:select="onChangeLabels"/>
 	</Layout>
@@ -12,7 +12,7 @@
 
 	// 组件
 	import Computer from '@/components/Account/Computer.vue';
-	import AccountType from '@/components/Account/accountType.vue';
+	import Tabs from '@/components/Tabs.vue';
 	import Remarks from '@/components/Account/remarks.vue';
 	import TopWrapper from '@/components/Account/topWrapper.vue';
 
@@ -21,9 +21,9 @@
 
 	@Component({
 		components: {
+			Tabs,
 			TopWrapper,
 			Remarks,
-			AccountType,
 			Computer
 		}
 	})
@@ -34,6 +34,11 @@
 			labels: [],
 			amount: 0,
 		};
+		type: string = 'outcome'
+		headerTab: Array<Object> = [
+			{name: '支出', value: 'outcome'},
+			{name: '收入', value: 'income'}
+		]
 
 		get recordList() {
 			return this.$store.state.recordList;
