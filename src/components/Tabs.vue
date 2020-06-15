@@ -23,13 +23,13 @@
 	}
 
 	@Component
-	export default class Tabs extends Vue{
-		@Prop(String) classPrefix!: string
-		@Prop({type: Array, required: true}) dataSource!: dataSrc[]
-		@Prop(String) readonly value!: string
+	export default class Tabs extends Vue {
+		@Prop(String) classPrefix!: string;
+		@Prop({type: Array, required: true}) dataSource!: dataSrc[];
+		@Prop(String) readonly value!: string;
 
 		onToggleType(item: dataSrc) {
-			this.$emit('update:value', item.value)
+			this.$emit('update:value', item.value);
 		}
 	}
 </script>

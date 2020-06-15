@@ -14,7 +14,7 @@ const store = new Vuex.Store({
 		},
 		createRecord(state, record) {
 			const target = JSON.parse(JSON.stringify(record));
-			target.createAt = new Date();
+			target.createAt = new Date().toISOString();
 			state.recordList.push(target);
 			store.commit('saveRecordList')
 		},

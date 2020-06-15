@@ -3,5 +3,9 @@ export interface Record {
 	labels?: string[]
 	amount: number
 	remark: string
-	createAt?: Date
+	createAt?: string
+}
+
+export interface RootState {
+	recordList: Record[]
 }
