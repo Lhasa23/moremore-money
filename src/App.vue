@@ -8,6 +8,11 @@
 	@import "~@/assets/styles/reset.scss";
 	@import "~@/assets/styles/helper.scss";
 
+	#app {
+		max-width: 460px;
+		margin: 0 auto;
+	}
+
 	body {
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -16,4 +21,5 @@
 		color: #333;
 		font-size: 16px;
 	}
+
 </style>
