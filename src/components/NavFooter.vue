@@ -6,7 +6,7 @@
 		</router-link>
 		<router-link to="/account" class="nav-item" active-class="active-nav">
 			<icons link="plus"/>
-			回首掏
+			回手掏
 		</router-link>
 		<router-link to="/statistics" class="nav-item" active-class="active-nav">
 			<icons link="chart"/>
